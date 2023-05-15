@@ -1,0 +1,40 @@
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+int main()
+{
+	char string[50];
+	int flag,count=0;
+	printf("The grammer is:S->aS,S->Sb,S->ab\n");
+	printf("enter the string to be checked:\n");
+	gets(string);
+	if(string[0]=='a')
+	{
+		flag=0;
+		for(count=1;string[count-1]!='\0';count++)
+		{
+			if(string[count]=='b')
+			{
+				flag=1;
+				continue;
+			}
+			else if((flag==1)&&(string[count]=='a'))
+			{
+				printf("the string does not belongs to the specified grammer");
+				break;
+			}
+			else if(string[count]=='a')
+			continue;
+			else
+			if((flag==1)&&(string[count]=='\0'))
+		{
+			printf("string not accepted.....!!!");
+			break;
+		}
+		else
+		{
+			printf("string accepted");
+		}
+		}
+	}
+}
