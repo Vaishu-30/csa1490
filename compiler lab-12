@@ -1,0 +1,88 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+#include<string.h>
+char lookahead;
+void E();
+void E_prime();
+void T();
+void T_prime();
+void F();
+void error()
+{
+	printf("Error\n");
+	exit(1);
+}
+void match(char c)
+{
+	if(lookahead==c)
+	{
+		lookahead=getchar();
+	}
+	else
+	{
+		error();
+	}
+}
+void E()
+{
+	T();
+	E_prime();
+}
+void E_prime()
+{
+	if(lookahead=='+')
+	{
+		match('+');
+		T();
+		E_prime();
+	}
+}
+void T()
+{
+	F();
+	T_prime();
+}
+void T_prime()
+{
+	if(lookahead=='*')
+	{
+		match('*');
+		F();
+		T_prime();
+	}
+}
+void F()
+{
+	if(lookahead=='(')
+	{
+		match('(');
+		E();
+		match(')');
+	}
+	else if(isalpha(lookahead))
+	{
+		match(lookahead);
+	}
+	else
+	{
+		error();
+	}
+}
+int main()
+{
+	char input[100];
+	printf("enter an expression:");
+	fgets(input,100,stdin);
+	lookahead=input[0];
+	E();
+	if(lookahead=='\n')
+	{
+		printf("parsing successful\n");
+	}
+	else
+	{
+		error();
+	}
+	return 0;
+}
